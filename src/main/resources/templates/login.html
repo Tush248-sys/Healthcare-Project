@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Online Registration System (Demo)</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+</head>
+<body>
+<div class="login-page">
+    <div class="login-card">
+        <div class="login-card-header">
+            <h1 class="login-title">Login</h1>
+        </div>
+
+        <div class="login-tabs">
+            <button type="button" class="login-tab active">Using Mobile Number</button>
+            <button type="button" class="login-tab">Using ABHA (Health ID)</button>
+        </div>
+
+        <form class="login-form" autocomplete="off">
+            <div class="form-group full-width">
+                <label class="form-label" for="mobile">Mobile No</label>
+                <div class="input-with-icon">
+                    <input id="mobile" name="mobile" type="tel" maxlength="10" class="form-input" placeholder="Enter 10-digit mobile number" />
+                    <span class="input-icon">📞</span>
+                </div>
+                <div class="field-hint">
+                    <span class="char-counter">0/10</span>
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label class="form-label" for="captchaInput">Enter Characters Displayed</label>
+                <input id="captchaInput" name="captchaInput" type="text" maxlength="6" class="form-input" placeholder="Enter captcha" />
+                <div class="field-hint">
+                    <span class="char-counter">0/6</span>
+                </div>
+            </div>
+
+            <div class="captcha-row">
+                <label class="radio-label">
+                    <input type="radio" name="captchaType" value="image" checked />
+                    <span>Image Captcha</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="captchaType" value="audio" />
+                    <span>Audio Captcha</span>
+                </label>
+            </div>
+
+            <div class="captcha-display">
+                <div class="captcha-image">2e59f6</div>
+                <button type="button" class="captcha-refresh" title="Refresh captcha">⟳</button>
+            </div>
+
+            <div class="login-actions">
+                <button type="button" class="otp-button disabled" disabled>Get OTP</button>
+            </div>
+
+            <p class="login-note">
+                This is a demo screen for UI only. OTP and captcha validation are not implemented.
+            </p>
+        </form>
+    </div>
+</div>
+</body>
+</html>
