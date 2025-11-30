@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Appointment Confirmed</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="app-shell">
+    <header class="app-header">
+        <div class="app-header-inner">
+            <div>
+                <div class="brand-title">Online Registration System (Demo)</div>
+                <div class="brand-subtitle">Appointment confirmation</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main animate-fade-in">
+        <div class="page-wrapper">
+            <section class="card success-card animate-scale-in">
+                <div class="success-icon">✓</div>
+                <h1 class="success-title">Registration Successful</h1>
+                <p class="success-message" th:text="${message}">
+                    Your registration has been submitted.
+                </p>
+
+                <ul class="summary-list" th:if="${appointment} != null">
+                    <li><strong>Appointment Number:</strong> <span th:text="${appointment.id}"></span></li>
+                    <li><strong>Hospital:</strong> <span th:text="${appointment.hospital}"></span></li>
+                    <li><strong>Department:</strong> <span th:text="${appointment.department}"></span></li>
+                    <li><strong>Appointment Date:</strong> <span th:text="${appointment.appointmentDate}"></span></li>
+                    <li><strong>Patient:</strong> <span th:text="${appointment.firstName + ' ' + appointment.lastName}"></span></li>
+                </ul>
+
+<a th:href="@{/register}" class="link-button hover-lift animate-fade-in-up">
+                    <span>Book another appointment</span>
+                    <span>↻</span>
+                </a>
+
+                <br /><br />
+<a th:href="@{/}" class="link-button hover-lift animate-fade-in-up">
+                    <span>Back to home</span>
+                </a>
+            </section>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        Demo application for educational purposes only.
+    </footer>
+</div>
+</body>
+</html>
