@@ -1,2 +1,2 @@
 # Healthcare-Project
-Signs in user and store information
+Signs in user and store information.
