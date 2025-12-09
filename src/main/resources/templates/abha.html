@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create ABHA (Health ID) - Online Registration System (Demo)</title>
+    <link rel="stylesheet" th:href="@{/css/abha.css}" />
+</head>
+<body>
+<header class="abha-header">
+    <div class="abha-header-inner">
+        <div class="abha-logo-text">
+            <span class="abha-logo-main">Online Registration System</span>
+        </div>
+        <nav class="abha-nav-links">
+            <a th:href="@{/}" class="abha-nav-link">Home</a>
+            <a th:href="@{/abha}" class="abha-nav-link active">Create ABHA</a>
+            <a th:href="@{/login}" class="abha-nav-link">Login</a>
+        </nav>
+    </div>
+</header>
+
+<main class="abha-main">
+    <section class="abha-hero">
+        <div class="abha-hero-inner">
+            <div class="abha-hero-left">
+                <h1 class="abha-hero-title">Create Ayushman Bharat Health Account - ABHA (Health ID)</h1>
+                <p class="abha-hero-subtitle">
+                    ABHA number is a 14 digit number that will uniquely identify you as a participant in India's digital
+                    healthcare ecosystem. It will help you establish a strong and trustable identity that will be accepted
+                    by healthcare providers and payers across the country.
+                </p>
+
+                <h2 class="abha-benefits-title">Benefits of ABHA Health ID card</h2>
+                <ul class="abha-benefits-list">
+                    <li>
+                        <span class="benefit-icon">✔</span>
+                        <div>
+                            <div class="benefit-heading">Unique &amp; Trustable Identity</div>
+                            <div class="benefit-text">Establish unique identity across different healthcare providers within the healthcare ecosystem.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="benefit-icon">✔</span>
+                        <div>
+                            <div class="benefit-heading">Unified Benefits</div>
+                            <div class="benefit-text">Link public health programmes and insurance schemes to your unique ABHA number.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="benefit-icon">✔</span>
+                        <div>
+                            <div class="benefit-heading">Hassle-free Access</div>
+                            <div class="benefit-text">Avoid long queues for registration by using your ABHA Health ID for OPD visits.</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="abha-hero-right">
+                <div class="abha-card">
+                    <h2 class="abha-card-title">ABHA (Health ID)</h2>
+                    <h3 class="abha-card-subtitle">Create Ayushman Bharat Health Account</h3>
+                    <p class="abha-card-helper">Enter your Aadhaar Number to create ABHA</p>
+
+                    <form class="abha-form" autocomplete="off">
+                        <div class="aadhaar-row">
+                            <input type="text" maxlength="4" class="abha-input aadhaar-input" placeholder="XXXX" />
+                            <input type="text" maxlength="4" class="abha-input aadhaar-input" placeholder="XXXX" />
+                            <input type="text" maxlength="4" class="abha-input aadhaar-input" placeholder="XXXX" />
+                        </div>
+
+                        <div class="captcha-type-row">
+                            <label class="radio-label">
+                                <input type="radio" name="abhaCaptchaType" value="image" checked />
+                                <span>Image Captcha</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="abhaCaptchaType" value="audio" />
+                                <span>Audio Captcha</span>
+                            </label>
+                        </div>
+
+                        <div class="abha-captcha-row">
+                            <div class="abha-captcha-image">1eaa72</div>
+                            <button type="button" class="abha-captcha-refresh" title="Refresh captcha">⟳</button>
+                            <input type="text" class="abha-input captcha-input" placeholder="Enter Captcha" />
+                        </div>
+
+                        <button type="button" class="abha-submit-button">Create ABHA</button>
+
+                        <p class="abha-demo-note">Demo only: ABHA creation is not connected to real health systems.</p>
+                    </form>
+
+                    <div class="abha-certified-note">CERTIFIED BY NHA (Demo Layout)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="abha-footer">
+    <div class="abha-footer-inner">
+        <p class="abha-footer-text">
+            © Copyright 2015, NIC. All Rights Reserved © | Govt. of India (Demo copy)
+        </p>
+        <p class="abha-footer-text-small">Updated on May 24, 2022, Tuesday (UI reference)</p>
+    </div>
+</footer>
+</body>
+</html>

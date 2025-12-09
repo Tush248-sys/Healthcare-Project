@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hospital Onboarding Manual - Online Registration System (Demo)</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/hospital-onboarding.css}" />
+</head>
+<body>
+<header class="hos-header">
+    <div class="hos-header-inner">
+        <div class="hos-logo">Online Registration System</div>
+        <nav class="hos-nav">
+            <a th:href="@{/}" class="hos-nav-link">Home</a>
+            <a th:href="@{/hospital/join}" class="hos-nav-link">Hospital Join Free</a>
+            <a th:href="@{/hospital/login}" class="hos-nav-link">Hospital Login</a>
+        </nav>
+    </div>
+</header>
+
+<main class="hos-main">
+    <section class="hos-hero">
+        <h1>Hospital Onboarding Manual</h1>
+        <p>
+            This guide explains how hospitals can register on the Online Healthcare Registration Portal and start offering
+            online OPD appointments, manage queues, and integrate with digital health services.
+        </p>
+    </section>
+
+    <section class="hos-section">
+        <h2>1. Requirements Before Onboarding</h2>
+        <ul>
+            <li>Hospital registration certificate</li>
+            <li>Complete address and location details</li>
+            <li>Official hospital email ID and phone number</li>
+            <li>Nodal Officer details</li>
+            <li>List of departments and OPD timings</li>
+            <li>Digital infrastructure (computers, internet, printers, registration counters)</li>
+            <li>ABHA / Health ID integration readiness (if applicable)</li>
+        </ul>
+    </section>
+
+    <section class="hos-section">
+        <h2>2. Steps to Start Hospital Onboarding</h2>
+        <ol>
+            <li>Visit the portal home page.</li>
+            <li>Scroll to the <strong>Hospital Onboarding</strong> section.</li>
+            <li>Click <strong>ORS OnBoarding Manual</strong> to read this guide.</li>
+            <li>Click <strong>Hospital Join Free</strong> to open the registration form.</li>
+            <li>Already registered hospitals should click <strong>Hospital Login</strong>.</li>
+        </ol>
+    </section>
+
+    <section class="hos-section">
+        <h2>3. Information Collected in Hospital Join Free</h2>
+        <h3>Hospital Details</h3>
+        <p>Hospital name, type (Government / Private / Trust / Autonomous), category, registration or licence number, year of establishment.</p>
+
+        <h3>Address &amp; Location</h3>
+        <p>Complete postal address, state, district, PIN code, and optional map coordinates.</p>
+
+        <h3>Contact Information</h3>
+        <p>Primary and secondary phone numbers, official email address, emergency contact details if applicable.</p>
+
+        <h3>Nodal Officer</h3>
+        <p>Full name, designation, mobile number, email ID, and supporting identity proof.</p>
+
+        <h3>Department &amp; OPD Setup</h3>
+        <p>Department names, specialist availability, OPD timings, weekly off days, and maximum patients per shift.</p>
+
+        <h3>Digital Infrastructure &amp; Uploads</h3>
+        <p>Availability of computers, internet, printers/scanners, ABHA readiness, IT staff, and document uploads such as registration certificate and authorization letters.</p>
+    </section>
+
+    <section class="hos-section">
+        <h2>4. Verification &amp; Approval</h2>
+        <p>
+            After submission, the portal team reviews the data. In some cases, details may be verified with the State Health
+            Authority. The hospital will receive confirmation or a request for clarification via email/SMS.
+        </p>
+        <p>
+            Once approved, credentials are shared to allow login to the Hospital Dashboard where departments, timings and
+            appointments can be managed.
+        </p>
+    </section>
+
+    <section class="hos-section">
+        <h2>5. Support</h2>
+        <p>
+            For onboarding assistance contact:<br />
+            Email: <strong>support@orsportal.in</strong><br />
+            Phone: <strong>1800-XXX-XXXX</strong> (demo)<br />
+            Helpdesk Hours: 9:00 AM – 6:00 PM
+        </p>
+    </section>
+</main>
+
+<footer class="hos-footer">
+    <p>Demo manual page for Hospital Onboarding workflow.</p>
+</footer>
+</body>
+</html>

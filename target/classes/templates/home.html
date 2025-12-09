@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Registration System - ORS Portal (Demo)</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/ors-home.css}" />
+    <script th:src="@{/js/home.js}" defer></script>
+</head>
+<body>
+    <!-- Top Header -->
+    <div class="top-header">
+        <div class="top-header-content">
+            <div class="top-header-left">
+                <span class="plus-icon">+</span>
+                <span>MEDICAL CARE</span>
+            </div>
+            <div class="top-header-center">
+                <span>A DIGITAL INDIA INITIATIVE</span>
+            </div>
+            <div class="top-header-right">
+                <a href="#faqs">FAQs</a>
+                <a href="#feedback">Feedback</a>
+                <a href="#contact">Contact</a>
+                <a href="#nodal">List of Nodal Officers</a>
+                <span style="cursor: pointer;">English ▼</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="nav-content">
+            <a href="#home" class="logo-container">
+                <div class="logo-circle">
+                    <span class="logo-text">ORS</span>
+                </div>
+                <div class="logo-title">Online Registration System</div>
+            </a>
+            <div class="nav-right">
+                <a href="#home" class="nav-link">
+                    <span>🏠</span>
+                    <span>Home</span>
+                </a>
+                <a href="#dashboard" class="nav-link">
+                    <span>📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a th:href="@{/abha}" class="nav-button abha-button">
+                    <span>💳</span>
+                    <span>Create ABHA (Health ID)</span>
+                </a>
+
+                <!-- When not logged in, show Register/Login -->
+                <a th:if="${loggedIn} == false" th:href="@{/login}" class="nav-button login-button">
+                    <span>🔐</span>
+                    <span>Register/Login</span>
+                </a>
+
+                <!-- When logged in, show Profile and Logout -->
+                <div th:if="${loggedIn}" class="nav-logged-in">
+                    <span class="nav-profile-label" th:text="${loggedInMobile}">+91-XXXXXXX</span>
+                    <a href="#profile" class="nav-button login-button">
+                        <span>👤</span>
+                        <span>Profile</span>
+                    </a>
+                    <a th:href="@{/logout}" class="nav-button login-button">
+                        <span>🚪</span>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-content">
+            <div class="animate-fade-in-up">
+                <h1 class="hero-title">
+                    Online Registration System (ORS) is a Digital India initiative that aims to provide online access to hospital services for patients, integrated with Ayushman Bharat Health Account.
+                </h1>
+                <p class="hero-subtitle">
+                    Now getting an OPD appointment, lab reports and blood availability in any government hospital has become online and easy.
+                </p>
+                <a th:if="${loggedIn} == false" th:href="@{/login}" class="hero-cta-button">
+                    Register/Login
+                    <span>→</span>
+                </a>
+                <a th:if="${loggedIn}" th:href="@{/register}" class="hero-cta-button">
+                    Book Appointment
+                    <span>→</span>
+                </a>
+            </div>
+            <div class="hero-image animate-slide-in-right">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80" alt="Healthcare Services" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ABHA Section with Carousel -->
+    <section class="abha-section" id="abha">
+        <div class="abha-container">
+            <button class="carousel-btn prev-btn" type="button" onclick="prevSlide()">‹</button>
+
+            <div class="abha-content" id="carouselContent">
+                <div class="abha-image animate-scale-in">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80" alt="ABHA Card" class="abha-card-img" id="carouselImage" />
+                </div>
+                <div class="abha-text animate-fade-in-up">
+                    <h2 class="abha-title" id="carouselTitle">Ayushman Bharat Health Account</h2>
+                    <p class="abha-description" id="carouselDescription">
+                        ABHA - Ayushman Bharat Health Account is the first step towards creating safer and efficient digital health records for you and your family.
+                    </p>
+                    <a th:href="@{/abha}" class="abha-create-button">
+                        <span>💳</span>
+                        <span>Create ABHA (Health ID)</span>
+                    </a>
+                </div>
+            </div>
+
+            <button class="carousel-btn next-btn" type="button" onclick="nextSlide()">›</button>
+
+            <div class="carousel-indicators">
+                <button class="indicator active" type="button" onclick="goToSlide(0)"></button>
+                <button class="indicator" type="button" onclick="goToSlide(1)"></button>
+                <button class="indicator" type="button" onclick="goToSlide(2)"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Action Buttons -->
+    <section class="action-buttons-section" id="appointment">
+        <div class="action-buttons-container">
+            <a th:href="@{/register}" class="action-btn book-appointment animate-fade-in-up">
+                <span>👤</span>
+                <span>Book Appointment</span>
+            </a>
+            <button type="button" class="action-btn book-tele animate-fade-in-up" style="animation-delay: 0.1s;">
+                <span>📹</span>
+                <span>Book Teleconsultation Appointment</span>
+            </button>
+            <a href="#scan-share-section" class="action-btn scan-share animate-fade-in-up" style="animation-delay: 0.2s;">
+                <span>📤</span>
+                <span>Scan and Share</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Scan & Share Section -->
+    <section class="scan-share-section" id="scan-share-section">
+        <div class="scan-share-container">
+            <h2 class="scan-share-title">SCAN AND SHARE</h2>
+            <p class="scan-share-subtitle">Ayushman Bharat's Initiative to reduce the OPD registration queue length at hospitals</p>
+
+            <div class="scan-share-layout">
+                <!-- Left: Phone illustration -->
+                <div class="scan-phone-card animate-slide-in-left">
+                    <div class="scan-phone">
+                        <div class="scan-phone-screen">
+                            <div class="scan-phone-qr-box">
+                                <span class="scan-phone-qr-text">Place<br />QR<br />CODE<br />here</span>
+                            </div>
+                            <div class="scan-phone-caption">Scan<br />QR Code For</div>
+                            <div class="scan-phone-footer">
+                                <span class="scan-phone-footer-fast">FASTER</span>
+                                <span class="scan-phone-footer-opd">OPD</span>
+                                <span class="scan-phone-footer-reg">REGISTRATION</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Description -->
+                <div class="scan-share-text animate-slide-in-right">
+                    <p>
+                        The OPD registration has been made simple, seamless and accurate by the
+                        <strong>Scan and Share</strong> functionality.
+                    </p>
+                    <p>
+                        The Scan and Share service allows patients to scan the unique <strong>QR code of the hospital</strong>
+                        using any ABDM-enabled application (such as Aarogya Setu, ABHA app, EkaCare, DRiefcase, Bajaj Health,
+                        PayTM and others) and share their <strong>ABHA profile</strong> with the hospital.
+                    </p>
+                    <p>
+                        After sharing the details, the patient can simply visit the registration counter, collect the
+                        outpatient slip and visit the doctor without waiting in a long queue.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scan & Share - How it works -->
+    <section class="scan-share-steps-section">
+        <div class="scan-share-container">
+            <h2 class="scan-share-steps-title">How it works ?</h2>
+            <div class="scan-share-steps-grid">
+                <div class="scan-step-card animate-scale-in">
+                    <div class="scan-step-header">
+                        <span class="scan-step-label">Step 1</span>
+                    </div>
+                    <h3 class="scan-step-title">Scan The QR Code</h3>
+                    <p class="scan-step-text">
+                        Scan the QR code using any QR code scanner, phone camera, or any ABDM-enabled app available on
+                        your smartphone.
+                    </p>
+                </div>
+
+                <div class="scan-step-card animate-scale-in" style="animation-delay: 0.1s;">
+                    <div class="scan-step-header">
+                        <span class="scan-step-label">Step 2</span>
+                    </div>
+                    <h3 class="scan-step-title">Install ABDM Enabled App</h3>
+                    <p class="scan-step-text">
+                        Install any ABDM-enabled Personal Health Records app (if not already installed), then register or
+                        log in with your mobile number.
+                    </p>
+                </div>
+
+                <div class="scan-step-card animate-scale-in" style="animation-delay: 0.2s;">
+                    <div class="scan-step-header">
+                        <span class="scan-step-label">Step 3</span>
+                    </div>
+                    <h3 class="scan-step-title">Share Profile</h3>
+                    <p class="scan-step-text">
+                        Share your ABHA profile with the hospital and generate the registration token instantly.
+                    </p>
+                </div>
+
+                <div class="scan-step-card animate-scale-in" style="animation-delay: 0.3s;">
+                    <div class="scan-step-header">
+                        <span class="scan-step-label">Step 4</span>
+                    </div>
+                    <h3 class="scan-step-title">Get OP Slip</h3>
+                    <p class="scan-step-text">
+                        Visit the registration counter, show the token, collect your OP slip and proceed to visit the
+                        doctor.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Other Facilities -->
+    <section class="other-facilities-section">
+        <div class="facilities-container">
+            <h2 class="facilities-title">Other Facilities</h2>
+            <div class="facilities-grid">
+                <div class="facility-card hover-lift animate-scale-in" id="e-opd">
+                    <div class="facility-icon" style="color: #4ade80;">📥</div>
+                    <h3 class="facility-title-text">e-OPD Card</h3>
+                </div>
+                <div class="facility-card hover-lift animate-scale-in" style="animation-delay: 0.1s;">
+                    <div class="facility-icon" style="color: #60a5fa;">💳</div>
+                    <h3 class="facility-title-text">Payments</h3>
+                </div>
+                <div class="facility-card hover-lift animate-scale-in" style="animation-delay: 0.2s;" id="lab-reports">
+                    <div class="facility-icon" style="color: #a78bfa;">📄</div>
+                    <h3 class="facility-title-text">Lab Report</h3>
+                </div>
+                <div class="facility-card hover-lift animate-scale-in" style="animation-delay: 0.3s;" id="blood">
+                    <div class="facility-icon" style="color: #f87171;">🩸</div>
+                    <h3 class="facility-title-text">Blood Availability</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="dashboard">
+        <div class="features-container">
+            <h2 class="features-main-title">Features of Online Registration System</h2>
+            <div class="features-divider"></div>
+
+            <p class="features-intro">
+                Online Registration System (ORS) is a framework to link various hospitals across the country for online appointment systems
+                where counter-based OPD registration and appointment systems through Hospital Management Information
+                Systems (HMIS) have been digitalized. The application has been hosted on the cloud services of NIC.
+                The portal facilitates online appointments with various departments of different Hospitals using ABHA (Ayushman Bharat Health Account).
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card hover-lift animate-fade-in-up">
+                    <div class="feature-icon" style="color: #fbbf24;">⚡</div>
+                    <h3 class="feature-title">Simple Appointment Process</h3>
+                    <p class="feature-description">
+                        For your first visit to hospital, registration and appointment with a doctor is made simpler. All you have to do is verify yourself using ABHA, select hospital and department, choose a date, and receive an SMS for your appointment.
+                    </p>
+                </div>
+                <div class="feature-card hover-lift animate-fade-in-up" style="animation-delay: 0.15s;">
+                    <div class="feature-icon" style="color: #f87171;">🏥</div>
+                    <h3 class="feature-title">Hospital On Boarding</h3>
+                    <p class="feature-description">
+                        Hospitals can come on board this platform and provide their appointment slots for online booking by patients. The system helps hospitals easily manage registration and appointment processes.
+                    </p>
+                </div>
+                <div class="feature-card hover-lift animate-fade-in-up" style="animation-delay: 0.3s;">
+                    <div class="feature-icon" style="color: #60a5fa;">📊</div>
+                    <h3 class="feature-title">Dashboard Reports</h3>
+                    <p class="feature-description">
+                        View high-level statistics such as the number of participating hospitals and appointment counts for new and returning patients.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hospital Onboarding -->
+    <section class="hospital-onboarding-section" id="teleconsultation">
+        <div class="onboarding-container">
+            <h2 class="onboarding-title">Every Hospital has moved online, why stay behind?</h2>
+
+            <div class="onboarding-actions">
+                <a th:href="@{/hospital/onboarding-manual}" class="onboarding-btn manual-btn animate-fade-in-up">
+                    <span>📄</span>
+                    <span>ORS OnBoarding Manual</span>
+                </a>
+                <a th:href="@{/hospital/join}" class="onboarding-btn join-btn animate-fade-in-up" style="animation-delay: 0.1s;" title="Register your hospital for online services">
+                    <span>🏢</span>
+                    <span>Hospital Join Free</span>
+                </a>
+                <a th:href="@{/hospital/login}" class="onboarding-btn hospital-login-btn animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <span>🔐</span>
+                    <span>Hospital Login</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights -->
+    <section class="highlights-section" id="dashboard-stats">
+        <div class="highlights-container">
+            <h2 class="highlights-title">Highlights</h2>
+            <div class="highlights-divider"></div>
+
+            <div class="highlights-grid">
+                <div class="highlight-card hover-lift animate-scale-in">
+                    <div class="highlight-icon">🏥</div>
+                    <h3 class="highlight-label">Number of Hospitals</h3>
+                    <div class="highlight-number" id="hospitalsCount">0</div>
+                    <a href="#" style="color: #4169e1; text-decoration: none;">More...</a>
+                </div>
+
+                <div class="highlight-card hover-lift animate-scale-in" style="animation-delay: 0.1s;">
+                    <div class="highlight-icon">📅</div>
+                    <h3 class="highlight-label">Online Appointments Taken Today</h3>
+                    <div class="highlight-number" id="todayCount">0</div>
+                    <a href="#" style="color: #4169e1; text-decoration: none;">More...</a>
+                </div>
+
+                <div class="highlight-card hover-lift animate-scale-in" style="animation-delay: 0.2s;">
+                    <div class="highlight-icon">👥</div>
+                    <h3 class="highlight-label">Total Online Appointments</h3>
+                    <div class="highlight-number" id="totalCount">0</div>
+                    <a href="#" style="color: #4169e1; text-decoration: none;">More...</a>
+                </div>
+            </div>
+
+            <p class="last-appointment-text">
+                Last Online Appointment Taken On: <strong>29/11/2025 03:13 PM</strong>
+            </p>
+        </div>
+    </section>
+
+    <!-- FAQs -->
+    <section class="highlights-section" id="faqs">
+        <div class="highlights-container">
+            <h2 class="highlights-title">Frequently Asked Questions (FAQs)</h2>
+            <div class="highlights-divider"></div>
+
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <h3 class="highlight-label">Q1. What is the Online Registration System (ORS)?</h3>
+                    <p class="footer-text">
+                        ORS is a digital platform that allows patients to book OPD appointments, view lab reports, and access healthcare services online
+                        without visiting the hospital physically.
+                    </p>
+                </div>
+                <div class="highlight-card">
+                    <h3 class="highlight-label">Q2. Do I need an ABHA (Health ID) to register?</h3>
+                    <p class="footer-text">
+                        No, you can register with your mobile number. However, having an ABHA ID helps you access integrated digital health records.
+                    </p>
+                </div>
+                <div class="highlight-card">
+                    <h3 class="highlight-label">Q3. How can I book an online appointment?</h3>
+                    <p class="footer-text">
+                        Click on <strong>Register/Login</strong>, enter your mobile number, verify the OTP, select the hospital, choose a department,
+                        and book your preferred slot.
+                    </p>
+                </div>
+                <div class="highlight-card">
+                    <h3 class="highlight-label">Q4. Is there any registration fee?</h3>
+                    <p class="footer-text">
+                        No, online registration and appointment booking are completely free.
+                    </p>
+                </div>
+                <div class="highlight-card">
+                    <h3 class="highlight-label">Q5. I did not receive my OTP. What should I do?</h3>
+                    <p class="footer-text">
+                        Wait for a few minutes and try again. You can also check network coverage or switch to another mobile number.
+                    </p>
+                </div>
+                <div class="highlight-card">
+                    <h3 class="highlight-label">Q6. Can I cancel or reschedule an appointment?</h3>
+                    <p class="footer-text">
+                        Yes. Visit the <strong>Dashboard</strong> after logging in and choose the option to cancel or reschedule your appointment.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feedback Guide -->
+    <section class="highlights-section" id="feedback">
+        <div class="highlights-container">
+            <h2 class="highlights-title">Feedback Guide</h2>
+            <div class="highlights-divider"></div>
+
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <h3 class="highlight-label">Q1. How was your overall experience using the ORS portal?</h3>
+                    <p class="footer-text">
+                        Please rate your experience from 1–5 and share suggestions to help us improve.
+                    </p>
+                </div>
+                <div class="highlight-card">
+                    <h3 class="highlight-label">Q2. Were you able to book an appointment without difficulty?</h3>
+                    <p class="footer-text">
+                        Answer Yes / No. If no, please describe the issue you faced (for example OTP problems, navigation issues, or delays).
+                    </p>
+                </div>
+                <div class="highlight-card">
+                    <h3 class="highlight-label">Q3. How satisfied are you with the registration process?</h3>
+                    <p class="footer-text">
+                        Very satisfied / Satisfied / Neutral / Unsatisfied / Very Unsatisfied.
+                    </p>
+                </div>
+                <div class="highlight-card">
+                    <h3 class="highlight-label">Q4. Did the information on the portal help you clearly understand the process?</h3>
+                    <p class="footer-text">
+                        Please provide feedback on any unclear steps or missing information so that we can make the portal easier to use.
+                    </p>
+                </div>
+                <div class="highlight-card">
+                    <h3 class="highlight-label">Q5. Do you want to report any technical issue or error?</h3>
+                    <p class="footer-text">
+                        You may mention the error message, attach a screenshot (if available), and specify the browser or device you used.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us -->
+    <section class="highlights-section" id="contact">
+        <div class="highlights-container">
+            <h2 class="highlights-title">Contact Us</h2>
+            <div class="highlights-divider"></div>
+
+            <div class="highlight-card">
+                <h3 class="highlight-label">General Inquiries</h3>
+                <p class="footer-text">
+                    📧 Email: <strong>support@orsportal.in</strong><br />
+                    ☎️ Phone: <strong>1800-123-4567</strong> (Toll-Free)<br />
+                    🕑 Support Hours: <strong>9:00 AM – 6:00 PM (Mon–Sat)</strong>
+                </p>
+
+                <h3 class="highlight-label">Technical Support</h3>
+                <p class="footer-text">
+                    📧 Email: <strong>techsupport@orsportal.in</strong><br />
+                    📞 Helpdesk: <strong>011-12345678</strong>
+                </p>
+
+                <h3 class="highlight-label">Address</h3>
+                <p class="footer-text">
+                    National Health Digital Services Division<br />
+                    Ministry of Health &amp; Family Welfare<br />
+                    New Delhi, India
+                </p>
+
+                <h3 class="highlight-label">Emergency Medical Help</h3>
+                <p class="footer-text">
+                    Dial <strong>108</strong> or visit the nearest healthcare center
+                    (emergency services are <strong>not</strong> handled through ORS).
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- List of Nodal Officers -->
+    <section class="highlights-section" id="nodal">
+        <div class="highlights-container">
+            <h2 class="highlights-title">List of Nodal Officers</h2>
+            <div class="highlights-divider"></div>
+
+            <div class="highlight-card">
+                <div class="footer-text" style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                        <thead>
+                            <tr>
+                                <th style="border-bottom: 1px solid #e5e7eb; padding: 8px; text-align: left;">S.No.</th>
+                                <th style="border-bottom: 1px solid #e5e7eb; padding: 8px; text-align: left;">Hospital / Department</th>
+                                <th style="border-bottom: 1px solid #e5e7eb; padding: 8px; text-align: left;">Nodal Officer Name</th>
+                                <th style="border-bottom: 1px solid #e5e7eb; padding: 8px; text-align: left;">Designation</th>
+                                <th style="border-bottom: 1px solid #e5e7eb; padding: 8px; text-align: left;">Email</th>
+                                <th style="border-bottom: 1px solid #e5e7eb; padding: 8px; text-align: left;">Phone</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">1</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">AIIMS New Delhi</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">Dr. R. Verma</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">ORS Nodal Officer</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">verma.aiims@gov.in</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">011-2658XXXX</td>
+                            </tr>
+                            <tr>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">2</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">Safdarjung Hospital</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">Ms. Priya Sharma</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">IT Coordinator</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">priya.sj@gov.in</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">011-2616XXXX</td>
+                            </tr>
+                            <tr>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">3</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">RML Hospital</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">Dr. A. Kapoor</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">Deputy Medical Superintendent</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">kapoor.rml@gov.in</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">011-2340XXXX</td>
+                            </tr>
+                            <tr>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">4</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">JIPMER Puducherry</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">Mr. S. Rao</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">Digital Health Officer</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">rao.jipmer@gov.in</td>
+                                <td style="border-bottom: 1px solid #e5e7eb; padding: 8px;">0413-227XXXX</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px;">5</td>
+                                <td style="padding: 8px;">PGIMER Chandigarh</td>
+                                <td style="padding: 8px;">Dr. Neelam Singh</td>
+                                <td style="padding: 8px;">Health Records Head</td>
+                                <td style="padding: 8px;">neelam.pgimer@gov.in</td>
+                                <td style="padding: 8px;">0172-275XXXX</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-title">About ORS</h3>
+                    <p class="footer-text">
+                        Online Registration System is a Digital India initiative to provide online access to hospital services,
+                        integrated with Ayushman Bharat Health Account.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#dashboard">Dashboard</a></li>
+                        <li><a href="#abha">Create ABHA</a></li>
+                        <li><a href="#faqs">FAQs</a></li>
+                        <li><a href="#feedback">Feedback</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#appointment">Book Appointment</a></li>
+                        <li><a href="#teleconsultation">Teleconsultation</a></li>
+                        <li><a href="#lab-reports">Lab Reports</a></li>
+                        <li><a href="#e-opd">e-OPD Card</a></li>
+                        <li><a href="#blood">Blood Availability</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Contact Summary</h3>
+                    <p class="footer-text">
+                        📧 support@orsportal.in<br />
+                        ☎️ 1800-123-4567 (Toll-Free)<br />
+                        📍 New Delhi, India
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Online Registration System (Demo). All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

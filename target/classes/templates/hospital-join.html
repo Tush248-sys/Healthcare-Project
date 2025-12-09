@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hospital Join Free - Online Registration System (Demo)</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/hospital-onboarding.css}" />
+    <script th:src="@{/js/hospital-onboarding.js}" defer></script>
+</head>
+<body>
+<header class="hos-header">
+    <div class="hos-header-inner">
+        <div class="hos-logo">Online Registration System</div>
+        <nav class="hos-nav">
+            <a th:href="@{/}" class="hos-nav-link">Home</a>
+            <a th:href="@{/hospital/join}" class="hos-nav-link">Hospital Join Free</a>
+            <a th:href="@{/hospital/login}" class="hos-nav-link">Hospital Login</a>
+        </nav>
+    </div>
+</header>
+
+<main class="join-wrapper">
+    <h1>Hospital Join Free</h1>
+    <p style="color:#4b5563; max-width:800px;">
+        Register your hospital on the Online Healthcare Registration Portal to offer online OPD appointments, manage
+        patient queues, and integrate with Ayushman Bharat Digital Mission services.
+    </p>
+
+    <div class="join-steps">
+        <div class="join-step-pill active">1. Hospital Details</div>
+        <div class="join-step-pill">2. Location Details</div>
+        <div class="join-step-pill">3. Nodal Officer Details</div>
+        <div class="join-step-pill">4. Departments &amp; OPD</div>
+        <div class="join-step-pill">5. Digital Infrastructure</div>
+        <div class="join-step-pill">6. Upload Documents</div>
+        <div class="join-step-pill">7. Review &amp; Submit</div>
+    </div>
+
+    <div class="join-card">
+        <div th:if="${errorMessage}" class="join-error" th:text="${errorMessage}"></div>
+
+        <form th:action="@{/hospital/join}" th:object="${hospital}" method="post" enctype="multipart/form-data">
+            <!-- Step 1: Hospital Details -->
+            <div data-step="1">
+                <div class="join-form-row">
+                    <div class="join-form-group">
+                        <label class="join-label" for="hospitalName">Hospital Name *</label>
+                        <input id="hospitalName" type="text" class="join-input" th:field="*{hospitalName}" required />
+                        <div class="join-small-hint">Enter full legal name of hospital.</div>
+                    </div>
+                    <div class="join-form-group">
+                        <label class="join-label" for="hospitalType">Hospital Type *</label>
+                        <select id="hospitalType" class="join-select" th:field="*{hospitalType}" required>
+                            <option value="">-- Select --</option>
+<option value="Government">Government</option>
+                            <option>Private</option>
+                            <option>Trust</option>
+                            <option>Autonomous</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="join-form-row">
+                    <div class="join-form-group">
+                        <label class="join-label" for="hospitalCategory">Hospital Category *</label>
+                        <select id="hospitalCategory" class="join-select" th:field="*{hospitalCategory}" required>
+                            <option value="">-- Select --</option>
+                            <option>General Hospital</option>
+                            <option>Multi-Speciality Hospital</option>
+                            <option>Super-Speciality Hospital</option>
+                            <option>Clinic / PHC / CHC</option>
+                            <option>Medical College Hospital</option>
+                        </select>
+                    </div>
+                    <div class="join-form-group">
+                        <label class="join-label" for="registrationNumber">Registration / Licence Number *</label>
+                        <input id="registrationNumber" type="text" class="join-input" th:field="*{registrationNumber}" required />
+                    </div>
+                </div>
+
+                <div class="join-form-row">
+                    <div class="join-form-group">
+                        <label class="join-label" for="yearOfEstablishment">Year of Establishment</label>
+                        <input id="yearOfEstablishment" type="text" class="join-input" th:field="*{yearOfEstablishment}" placeholder="e.g. 1998" />
+                    </div>
+                </div>
+
+                <div class="join-actions">
+                    <span></span>
+                    <button type="button" class="join-btn-primary" data-next>Next</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Location Details -->
+            <div data-step="2" style="display:none;">
+                <div class="join-form-group">
+                    <label class="join-label" for="address">Complete Address *</label>
+                    <textarea id="address" class="join-textarea" th:field="*{address}" required></textarea>
+                </div>
+
+                <div class="join-form-row">
+                    <div class="join-form-group">
+                        <label class="join-label" for="state">State *</label>
+                        <input id="state" type="text" class="join-input" th:field="*{state}" required />
+                    </div>
+                    <div class="join-form-group">
+                        <label class="join-label" for="district">District *</label>
+                        <input id="district" type="text" class="join-input" th:field="*{district}" required />
+                    </div>
+                </div>
+
+                <div class="join-form-row">
+                    <div class="join-form-group">
+                        <label class="join-label" for="pinCode">PIN Code *</label>
+                        <input id="pinCode" type="text" maxlength="6" pattern="[0-9]{6}" class="join-input" th:field="*{pinCode}" required />
+                        <div class="join-small-hint">6-digit numeric postal code.</div>
+                    </div>
+                    <div class="join-form-group">
+                        <label class="join-label" for="geoLocation">Geo-location Coordinates (optional)</label>
+                        <input id="geoLocation" type="text" class="join-input" th:field="*{geoLocation}" placeholder="Latitude, Longitude" />
+                    </div>
+                </div>
+
+                <div class="join-actions">
+                    <button type="button" class="join-btn-secondary" data-prev>Back</button>
+                    <button type="button" class="join-btn-primary" data-next>Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Nodal Officer & Contact Details -->
+            <div data-step="3" style="display:none;">
+                <div class="join-form-row">
+                    <div class="join-form-group">
+                        <label class="join-label" for="primaryContactNumber">Primary Hospital Contact Number *</label>
+                        <input id="primaryContactNumber" type="tel" class="join-input" th:field="*{primaryContactNumber}" required />
+                    </div>
+                    <div class="join-form-group">
+                        <label class="join-label" for="officialEmail">Official Hospital Email *</label>
+                        <input id="officialEmail" type="email" class="join-input" th:field="*{officialEmail}" required />
+                    </div>
+                </div>
+
+                <div class="join-form-row">
+                    <div class="join-form-group">
+                        <label class="join-label" for="secondaryContactNumber">Secondary Contact Number</label>
+                        <input id="secondaryContactNumber" type="tel" class="join-input" th:field="*{secondaryContactNumber}" />
+                    </div>
+                </div>
+
+                <hr style="margin:16px 0;" />
+                <h3>Nodal Officer Details</h3>
+                <div class="join-form-row">
+                    <div class="join-form-group">
+                        <label class="join-label" for="nodalName">Full Name *</label>
+                        <input id="nodalName" type="text" class="join-input" th:field="*{nodalName}" required />
+                    </div>
+                    <div class="join-form-group">
+                        <label class="join-label" for="nodalDesignation">Designation *</label>
+                        <input id="nodalDesignation" type="text" class="join-input" th:field="*{nodalDesignation}" required />
+                    </div>
+                </div>
+
+                <div class="join-form-row">
+                    <div class="join-form-group">
+                        <label class="join-label" for="nodalMobile">Mobile Number *</label>
+                        <input id="nodalMobile" type="tel" class="join-input" th:field="*{nodalMobile}" required />
+                        <div class="join-small-hint">OTP verification is recommended in production.</div>
+                    </div>
+                    <div class="join-form-group">
+                        <label class="join-label" for="nodalEmail">Email ID *</label>
+                        <input id="nodalEmail" type="email" class="join-input" th:field="*{nodalEmail}" required />
+                    </div>
+                </div>
+
+                <div class="join-actions">
+                    <button type="button" class="join-btn-secondary" data-prev>Back</button>
+                    <button type="button" class="join-btn-primary" data-next>Next</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Departments & OPD Setup -->
+            <div data-step="4" style="display:none;">
+                <p class="join-small-hint">Add all major departments and their OPD timings.</p>
+                <table class="departments-table">
+                    <thead>
+                    <tr>
+                        <th>Department Name</th>
+                        <th>OPD Timings (Morning)</th>
+                        <th>OPD Timings (Evening)</th>
+                        <th>Weekly Off Days</th>
+                        <th>Max Patients / Shift</th>
+                    </tr>
+                    </thead>
+                    <tbody id="departmentsBody">
+                    <tr th:each="dept, iterStat : *{departments}">
+                        <td><input th:field="*{departments[__${iterStat.index}__].departmentName}" /></td>
+                        <td><input th:field="*{departments[__${iterStat.index}__].opdMorningTimings}" /></td>
+                        <td><input th:field="*{departments[__${iterStat.index}__].opdEveningTimings}" /></td>
+                        <td><input th:field="*{departments[__${iterStat.index}__].weeklyOffDays}" /></td>
+                        <td><input type="number" min="0" th:field="*{departments[__${iterStat.index}__].maxPatientsPerShift}" /></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button id="addDepartmentRow" class="add-dept-btn" type="button">+ Add another department</button>
+
+                <div class="join-actions">
+                    <button type="button" class="join-btn-secondary" data-prev>Back</button>
+                    <button type="button" class="join-btn-primary" data-next>Next</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Digital Infrastructure -->
+            <div data-step="5" style="display:none;">
+                <div class="join-toggle-row">
+                    <label class="join-checkbox-label">
+                        <input type="checkbox" th:field="*{hasComputers}" />
+                        <span>Computers available at registration counters</span>
+                    </label>
+                    <label class="join-checkbox-label">
+                        <input type="checkbox" th:field="*{hasInternet}" />
+                        <span>Internet connectivity available</span>
+                    </label>
+                    <label class="join-checkbox-label">
+                        <input type="checkbox" th:field="*{hasPrinterScanner}" />
+                        <span>Printer / scanner available</span>
+                    </label>
+                </div>
+                <div class="join-toggle-row">
+                    <label class="join-checkbox-label">
+                        <input type="checkbox" th:field="*{hasAbhaIntegration}" />
+                        <span>ABHA (Health ID) integration ready</span>
+                    </label>
+                    <label class="join-checkbox-label">
+                        <input type="checkbox" th:field="*{hasItStaff}" />
+                        <span>Dedicated IT staff available</span>
+                    </label>
+                </div>
+                <div class="join-form-group">
+                    <label class="join-label" for="infraNotes">Additional notes (optional)</label>
+                    <textarea id="infraNotes" class="join-textarea" th:field="*{infraNotes}"></textarea>
+                </div>
+
+                <div class="join-actions">
+                    <button type="button" class="join-btn-secondary" data-prev>Back</button>
+                    <button type="button" class="join-btn-primary" data-next>Next</button>
+                </div>
+            </div>
+
+            <!-- Step 6: Upload Documents -->
+            <div data-step="6" style="display:none;">
+                <p class="join-small-hint">Allowed formats: PDF / JPG / PNG. Max size: 5 MB per file.</p>
+
+                <div class="join-form-group">
+                    <label class="join-label" for="registrationCertificate">Hospital Registration Certificate *</label>
+                    <input id="registrationCertificate" name="registrationCertificate" type="file" class="join-input" required />
+                </div>
+                <div class="join-form-group">
+                    <label class="join-label" for="nodalIdProof">Nodal Officer ID Proof *</label>
+                    <input id="nodalIdProof" name="nodalIdProof" type="file" class="join-input" required />
+                </div>
+                <div class="join-form-group">
+                    <label class="join-label" for="sealAuthorizationLetter">Hospital Seal &amp; Authorization Letter *</label>
+                    <input id="sealAuthorizationLetter" name="sealAuthorizationLetter" type="file" class="join-input" required />
+                </div>
+                <div class="join-form-group">
+                    <label class="join-label" for="infraReadinessDoc">Digital Infrastructure Proof (optional)</label>
+                    <input id="infraReadinessDoc" name="infraReadinessDoc" type="file" class="join-input" />
+                </div>
+
+                <div class="join-actions">
+                    <button type="button" class="join-btn-secondary" data-prev>Back</button>
+                    <button type="button" class="join-btn-primary" data-next>Next</button>
+                </div>
+            </div>
+
+            <!-- Step 7: Review & Submit -->
+            <div data-step="7" style="display:none;">
+                <p>
+                    Please review all details entered in previous steps. If you need to change anything, use the Back button
+                    to navigate to the relevant section.
+                </p>
+                <div class="review-block">
+                    After submission, you will receive an on-screen confirmation with an Application ID. This demo does not
+                    send real SMS/Email but mimics the workflow of the official portal.
+                </div>
+                <div class="join-actions">
+                    <button type="button" class="join-btn-secondary" data-prev>Back</button>
+                    <button type="submit" class="join-btn-primary">Submit Registration</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer class="hos-footer">
+    <p>Demo multi-step Hospital Join Free form with basic validation and document uploads.</p>
+</footer>
+</body>
+</html>
