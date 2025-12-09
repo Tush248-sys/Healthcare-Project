@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hospital Onboarding Submitted - Online Registration System (Demo)</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/hospital-onboarding.css}" />
+</head>
+<body>
+<header class="hos-header">
+    <div class="hos-header-inner">
+        <div class="hos-logo">Online Registration System</div>
+        <nav class="hos-nav">
+            <a th:href="@{/}" class="hos-nav-link">Home</a>
+            <a th:href="@{/hospital/join}" class="hos-nav-link">Hospital Join Free</a>
+            <a th:href="@{/hospital/login}" class="hos-nav-link">Hospital Login</a>
+        </nav>
+    </div>
+</header>
+
+<main class="hos-main">
+    <section class="hos-section" th:if="${application}">
+        <h1>Hospital Onboarding Application Submitted</h1>
+        <p>
+            Thank you for submitting your hospital's onboarding request to the Online Healthcare Registration Portal.
+        </p>
+
+        <div class="review-block">
+            <p><strong>Application ID:</strong> <span th:text="${application.applicationId}"></span></p>
+            <p><strong>Hospital Name:</strong> <span th:text="${application.hospitalName}"></span></p>
+            <p><strong>Status:</strong> <span th:text="${application.status}"></span></p>
+            <p><strong>Submitted At:</strong> <span th:text="${#temporals.format(application.submittedAt, 'dd/MM/yyyy HH:mm')}"></span></p>
+        </div>
+
+        <p>
+            The onboarding team will review your details and may coordinate with the State Health Authority, if needed.
+            Once approved, login credentials will be shared on the registered email and mobile number of the Nodal Officer.
+        </p>
+
+        <p>
+            For any clarification, please refer to the <a th:href="@{/hospital/onboarding-manual}">Hospital Onboarding Manual</a>
+            or contact the helpdesk.
+        </p>
+    </section>
+</main>
+
+<footer class="hos-footer">
+    <p>Demo acknowledgement screen for Hospital Onboarding.</p>
+</footer>
+</body>
+</html>

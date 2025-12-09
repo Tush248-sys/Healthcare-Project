@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hospital Onboarding Applications - Admin View (Demo)</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/hospital-onboarding.css}" />
+</head>
+<body>
+<header class="hos-header">
+    <div class="hos-header-inner">
+        <div class="hos-logo">Online Registration System - Admin</div>
+        <nav class="hos-nav">
+            <a th:href="@{/}" class="hos-nav-link">Home</a>
+            <a th:href="@{/hospital/join}" class="hos-nav-link">Hospital Join Free</a>
+            <a th:href="@{/hospital/admin/applications}" class="hos-nav-link">Admin Applications</a>
+        </nav>
+    </div>
+</header>
+
+<main class="hos-main">
+    <section class="hos-section">
+        <h1>Hospital Onboarding Applications</h1>
+        <p class="hos-login-note">
+            This is a demo admin view to inspect hospital onboarding applications stored in the system. Status changes and
+            workflow actions are not implemented.
+        </p>
+
+        <div class="join-form-row" style="margin-bottom: 16px;">
+            <div class="review-block">
+                <strong>Total Applications:</strong> <span th:text="${total}">0</span>
+            </div>
+            <div class="review-block">
+                <strong>Submitted:</strong> <span th:text="${submittedCount}">0</span>
+            </div>
+            <div class="review-block">
+                <strong>Under Review:</strong> <span th:text="${underReviewCount}">0</span>
+            </div>
+            <div class="review-block">
+                <strong>Approved:</strong> <span th:text="${approvedCount}">0</span>
+            </div>
+            <div class="review-block">
+                <strong>Rejected:</strong> <span th:text="${rejectedCount}">0</span>
+            </div>
+        </div>
+
+        <div style="overflow-x:auto;">
+            <table class="departments-table">
+                <thead>
+                <tr>
+                    <th>Application ID</th>
+                    <th>Hospital Name</th>
+                    <th>Type</th>
+                    <th>Category</th>
+                    <th>State</th>
+                    <th>District</th>
+                    <th>Status</th>
+                    <th>Submitted At</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="app : ${applications}">
+                    <td th:text="${app.applicationId}"></td>
+                    <td th:text="${app.hospitalName}"></td>
+                    <td th:text="${app.hospitalType}"></td>
+                    <td th:text="${app.hospitalCategory}"></td>
+                    <td th:text="${app.state}"></td>
+                    <td th:text="${app.district}"></td>
+                    <td th:text="${app.status}"></td>
+                    <td th:text="${#temporals.format(app.submittedAt, 'dd/MM/yyyy HH:mm')}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(applications)}">
+                    <td colspan="8" style="text-align:center;">No applications submitted yet.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<footer class="hos-footer">
+    <p>Demo admin listing of hospital onboarding applications.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify OTP - Online Registration System (Demo)</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+</head>
+<body>
+<div class="login-page">
+    <div class="login-card">
+        <div class="login-card-header">
+            <h1 class="login-title">Verify OTP</h1>
+        </div>
+
+        <form class="login-form" th:action="@{/login/verify}" method="post" autocomplete="off">
+            <div class="form-group full-width">
+                <label class="form-label">Mobile No</label>
+                <div class="input-with-icon">
+                    <input type="tel" class="form-input" th:value="${mobile}" readonly />
+                    <span class="input-icon">📞</span>
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label class="form-label" for="otp">Enter OTP</label>
+                <div class="input-with-icon">
+                    <input id="otp" name="otp" type="text" maxlength="6" class="form-input" placeholder="Enter OTP received on your email" />
+                    <span class="input-icon">🔒</span>
+                </div>
+            </div>
+
+            <div th:if="${error}" class="login-error" th:text="${error}"></div>
+
+            <div class="login-actions">
+                <button type="submit" class="otp-button">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hospital Login - Online Registration System (Demo)</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/hospital-onboarding.css}" />
+</head>
+<body>
+<header class="hos-header">
+    <div class="hos-header-inner">
+        <div class="hos-logo">Online Registration System</div>
+        <nav class="hos-nav">
+            <a th:href="@{/}" class="hos-nav-link">Home</a>
+            <a th:href="@{/hospital/join}" class="hos-nav-link">Hospital Join Free</a>
+            <a th:href="@{/hospital/login}" class="hos-nav-link">Hospital Login</a>
+        </nav>
+    </div>
+</header>
+
+<main class="hos-login-wrapper">
+    <div class="hos-login-card">
+        <h1 class="hos-login-title">Hospital Login</h1>
+        <p class="hos-login-note">
+            Enter the <strong>official hospital email</strong> used during onboarding as username. An OTP will be sent to the
+            registered Nodal Officer email address.
+        </p>
+
+        <div th:if="${error}" class="hos-login-error" th:text="${error}"></div>
+        <div th:if="${info}" class="hos-login-note" th:text="${info}"></div>
+
+        <form method="post">
+            <div class="join-form-group">
+                <label class="join-label" for="username">Username (Official Hospital Email)</label>
+                <input id="username" name="username" type="email" class="join-input" placeholder="Enter registered hospital email" th:value="${username}" required />
+            </div>
+
+            <div class="join-form-group" th:if="${otpRequested}">
+                <label class="join-label" for="otp">OTP</label>
+                <input id="otp" name="otp" type="text" class="join-input" placeholder="Enter OTP sent to Nodal Officer" />
+                <div class="join-small-hint">Check the registered Nodal Officer email for the OTP (valid 5 minutes).</div>
+            </div>
+
+            <div class="join-actions" style="margin-top:8px; gap:8px;">
+                <button type="submit" class="join-btn-secondary" style="flex:1;" th:formaction="@{/hospital/login/send-otp}">Send OTP</button>
+                <button type="submit" class="join-btn-primary" style="flex:1;" th:formaction="@{/hospital/login/verify}">Login with OTP</button>
+            </div>
+
+            <p class="hos-login-note" style="margin-top:16px;">
+                <strong>Forgot Password?</strong><br />
+                In this demo, access is based on OTP only. In a full system, a separate password reset flow would be provided.
+            </p>
+        </form>
+    </div>
+</main>
+
+<footer class="hos-footer">
+    <p>Demo login UI for Hospital Dashboard access.</p>
+</footer>
+</body>
+</html>

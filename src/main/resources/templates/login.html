@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Online Registration System (Demo)</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+</head>
+<body>
+<div class="login-page">
+    <div class="login-card">
+        <div class="login-card-header">
+            <h1 class="login-title">Login</h1>
+        </div>
+
+        <div class="login-tabs">
+            <button type="button" class="login-tab active">Using Mobile Number</button>
+            <button type="button" class="login-tab">Using ABHA (Health ID)</button>
+        </div>
+
+        <form class="login-form" th:action="@{/login/send-otp}" method="post" autocomplete="off">
+            <div class="form-group full-width">
+                <label class="form-label" for="mobile">Mobile No</label>
+                <div class="input-with-icon">
+                    <input id="mobile" name="mobile" type="tel" maxlength="10" class="form-input" placeholder="Enter 10-digit mobile number" th:value="${mobile}" />
+                    <span class="input-icon">📞</span>
+                </div>
+                <div class="field-hint">
+                    <span class="char-counter">0/10</span>
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label class="form-label" for="email">Email (for receiving OTP)</label>
+                <div class="input-with-icon">
+                    <input id="email" name="email" type="email" class="form-input" placeholder="Enter your email" />
+                    <span class="input-icon">✉️</span>
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label class="form-label" for="captcha">Enter Characters Displayed</label>
+                <input id="captcha" name="captcha" type="text" maxlength="6" class="form-input" placeholder="Enter captcha" />
+                <div class="field-hint">
+                    <span class="char-counter">0/6</span>
+                </div>
+            </div>
+
+            <div class="captcha-row">
+                <label class="radio-label">
+                    <input type="radio" name="captchaType" value="image" checked />
+                    <span>Image Captcha</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="captchaType" value="audio" />
+                    <span>Audio Captcha</span>
+                </label>
+            </div>
+
+            <div class="captcha-display">
+                <div class="captcha-image" th:text="${captcha}">ABC123</div>
+                <!-- For simplicity, refresh is a full page reload -->
+                <a th:href="@{/login}" class="captcha-refresh" title="Refresh captcha">⟳</a>
+            </div>
+
+            <div class="login-actions">
+                <button type="submit" class="otp-button">Get OTP</button>
+            </div>
+
+            <div th:if="${error}" class="login-error" th:text="${error}"></div>
+            <div th:if="${info}" class="login-info" th:text="${info}"></div>
+
+            <div th:if="${otpRequested}" class="otp-section">
+                <div class="form-group full-width">
+                    <label class="form-label" for="otp">Enter OTP</label>
+                    <input id="otp" name="otp" type="text" maxlength="6" class="form-input" placeholder="Enter OTP" />
+                </div>
+
+                <div class="login-actions">
+                    <button type="submit" class="otp-button" formaction="#" th:formaction="@{/login/verify}">Login with OTP</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
